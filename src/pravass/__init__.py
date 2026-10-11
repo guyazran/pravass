@@ -9,6 +9,7 @@ from importlib.metadata import PackageNotFoundError, version
 
 from ._validation import DEFAULT_MAX_STATES
 from .base import Belief, BeliefSet, InfeasibleConstraintError, State, StateLimitError, TimeLimitError
+from .unconstrained import FactoredBelief, UnconstrainedBelief
 
 try:
     __version__ = version("pravass")
@@ -18,7 +19,9 @@ except PackageNotFoundError:  # running from a source tree
 __all__ = [
     "State",
     "BeliefSet",
+    "FactoredBelief",
     "Belief",
+    "UnconstrainedBelief",
     "DEFAULT_MAX_STATES",
     "InfeasibleConstraintError",
     "StateLimitError",
