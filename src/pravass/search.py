@@ -108,6 +108,11 @@ def iter_pravass(
     a planner can still handle (the paper's AMS), and can read how much search
     it took.
 
+    Equally probable states come out in a fixed order: features with
+    probability exactly 0.5 start false, and among tied states the search has
+    found, it takes the one that is false at the first feature (in sorted
+    order) where they differ.
+
     Args:
         belief: As for :func:`pravass`.
         theta: Stop once the yielded states provably carry probability
@@ -186,9 +191,12 @@ class PravassIterator:
             self._steps = iter(())
             return
 
-        self._features = sorted(unconstrained.features)
+        # Bit i holds the i-th feature in reverse sorted order, so the frontier's
+        # (cost, mask) order breaks ties by the first sorted feature where two
+        # states differ, false before true. Features at exactly 0.5 start false.
+        self._features = sorted(unconstrained.features, reverse=True)
         self._probabilities = [unconstrained.factored_belief[f] for f in self._features]
-        self._start = sum(1 << i for i, p in enumerate(self._probabilities) if p >= 0.5)
+        self._start = sum(1 << i for i, p in enumerate(self._probabilities) if p > 0.5)
         self._costs = [_flip_cost(p) for p in self._probabilities]
         self._log_start_mass = math.fsum(math.log(max(p, 1.0 - p)) for p in self._probabilities)
         if math.exp(self._log_start_mass) == 0.0:

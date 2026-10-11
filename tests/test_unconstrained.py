@@ -85,8 +85,8 @@ class TestMostLikelyState:
     def test_most_likely_state(self, app_a_unconstrained):
         assert app_a_unconstrained.most_likely_state() == frozenset({"f2", "f3"})
 
-    def test_ties_go_to_true_like_s3e_to_state(self):
-        assert UnconstrainedBelief({"a": 0.5, "b": 0.49}).most_likely_state() == frozenset({"a"})
+    def test_ties_go_to_false(self):
+        assert UnconstrainedBelief({"a": 0.5, "b": 0.51}).most_likely_state() == frozenset({"b"})
 
 
 def test_products_do_not_depend_on_input_order():

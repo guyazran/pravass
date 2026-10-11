@@ -70,10 +70,11 @@ class UnconstrainedBelief(Belief):
     def most_likely_state(self) -> State:
         """The state that sets every feature to its most probable value.
 
-        Features with probability exactly 0.5 are set to true, matching s3e's
-        ``PredictionSet.to_state(0.5)``.
+        Features with probability exactly 0.5 are set to false, so this is the
+        first state :func:`~pravass.iter_pravass` examines. (s3e's
+        ``PredictionSet.to_state(0.5)`` sets them to true.)
         """
-        return frozenset(f for f, p in self._factored_belief.items() if p >= 0.5)
+        return frozenset(f for f, p in self._factored_belief.items() if p > 0.5)
 
     def marginal(self, features: Iterable[str]) -> "UnconstrainedBelief":
         """The unconstrained belief over a subset of the features."""

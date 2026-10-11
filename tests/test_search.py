@@ -354,8 +354,22 @@ class TestIterPravass:
         with pytest.raises(TimeLimitError):
             for state in search:
                 found.append(state)
-        assert found and found[0] == frozenset(f"x{i}" for i in range(30))
+        assert found and found[0] == belief.most_likely_state()
         assert search.mass > 0.0
+
+    def test_ties_start_false_and_break_on_the_first_feature(self):
+        belief = UnconstrainedBelief({"a": 0.5, "b": 0.5, "c": 0.5})
+        assert [sorted(s) for s in iter_pravass(belief)] == [
+            [], ["c"], ["b"], ["b", "c"], ["a"], ["a", "c"], ["a", "b"], ["a", "b", "c"]
+        ]
+
+    def test_tied_alternatives_come_last_feature_first(self):
+        belief = TaskBelief(
+            UnconstrainedBelief({"a": 0.5, "b": 0.5, "c": 0.5}),
+            FunctionConstraint(lambda state: len(state) == 1),
+            normalizer=UnitNormalizer(),
+        )
+        assert [sorted(s) for s in iter_pravass(belief)] == [["c"], ["b"], ["a"]]
 
     @pytest.mark.parametrize("time_limit, error", [(0, ValueError), (-1.0, ValueError), (True, TypeError), ("1", TypeError)])
     def test_invalid_time_limit(self, app_a_unconstrained, time_limit, error):
