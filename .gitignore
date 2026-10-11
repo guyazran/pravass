@@ -16,3 +16,6 @@ experiments/.env
 experiments/raw_data.zip
 experiments/predictions.zip
 experiments/*.pkl
+
+# The CPOR planner is cloned and built separately (see experiments/README.md).
+experiments/up-cpor/

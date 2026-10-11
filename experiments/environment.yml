@@ -1,0 +1,17 @@
+# System runtime for the experiments (Linux x86-64).
+#
+# Python packages are pinned separately by uv.lock (see README.md). This conda
+# environment supplies what pip/uv cannot: the Mono and .NET runtimes that the
+# CPOR contingent planner (up-cpor, used by Experiments 3 and 6) runs on through
+# pythonnet, plus uv itself. Versions are those used for the paper.
+#
+#   conda env create -f environment.yml
+#   conda activate pravass-experiments
+name: pravass-experiments
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - mono=6.12.0.199
+  - dotnet=10.0.100
+  - uv
