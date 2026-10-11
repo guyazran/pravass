@@ -10,6 +10,9 @@ from importlib.metadata import PackageNotFoundError, version
 from ._validation import DEFAULT_MAX_STATES
 from .base import Belief, BeliefSet, InfeasibleConstraintError, State, StateLimitError, TimeLimitError
 from .constraints import Constraint, FunctionConstraint
+from .mutex import MutexGroups, MutexNormalizer
+from .normalizers import EnumerationNormalizer, Normalization, Normalizer, UnitNormalizer
+from .task import TaskBelief
 from .unconstrained import FactoredBelief, UnconstrainedBelief
 
 try:
@@ -23,8 +26,15 @@ __all__ = [
     "FactoredBelief",
     "Belief",
     "UnconstrainedBelief",
+    "TaskBelief",
     "Constraint",
     "FunctionConstraint",
+    "MutexGroups",
+    "Normalization",
+    "Normalizer",
+    "EnumerationNormalizer",
+    "UnitNormalizer",
+    "MutexNormalizer",
     "DEFAULT_MAX_STATES",
     "InfeasibleConstraintError",
     "StateLimitError",
