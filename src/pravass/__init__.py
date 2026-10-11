@@ -9,6 +9,7 @@ from importlib.metadata import PackageNotFoundError, version
 
 from ._validation import DEFAULT_MAX_STATES
 from .base import Belief, BeliefSet, InfeasibleConstraintError, State, StateLimitError, TimeLimitError
+from .constraints import Constraint, FunctionConstraint
 from .unconstrained import FactoredBelief, UnconstrainedBelief
 
 try:
@@ -22,6 +23,8 @@ __all__ = [
     "FactoredBelief",
     "Belief",
     "UnconstrainedBelief",
+    "Constraint",
+    "FunctionConstraint",
     "DEFAULT_MAX_STATES",
     "InfeasibleConstraintError",
     "StateLimitError",
