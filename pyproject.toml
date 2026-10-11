@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools >= 77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pravass"
+version = "0.1.0"
+description = "Task-aware minimal belief sets over symbolic states from pretrained perception (PRaVaSS)"
+readme = "README.md"
+requires-python = ">= 3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Guy Azran" },
+    { name = "Sarah Keren" },
+]
+keywords = [
+    "state estimation",
+    "belief",
+    "planning under uncertainty",
+    "vision-language models",
+    "neurosymbolic",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+# The core is pure Python with no dependencies. For image observations, pair it
+# with s3e (see the README).
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "numpy"]
+
+[project.urls]
+Repository = "https://github.com/guyazran/pravass"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
